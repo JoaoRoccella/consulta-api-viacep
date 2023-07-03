@@ -36,8 +36,6 @@
 
         function carregaCEP(conteudo) {
 
-            conteudo = JSON.parse(conteudo);
-
             if (!("erro" in conteudo)) {
 
                 //Atualiza os campos com os valores.
@@ -92,8 +90,8 @@
                     })
 
                     fetch(requisicao)
-                        .then(response => response.json())
-                        .then(response => carregaCEP(JSON.stringify(response)));
+                        .then(resposta => resposta.json())
+                        .then(resposta => carregaCEP(resposta));
 
                 } else {
 
