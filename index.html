@@ -13,7 +13,7 @@
     <form method="get" action=".">
         <label>Cep:
             <input name="cep" type="text" id="cep" value="" size="10" maxlength="9"
-                onblur="pesquisacep(this.value);"></label><br>
+                onblur="pesquisacep(this.value);" autofocus></label><br>
         <label>Rua:
             <input name="rua" type="text" id="rua" size="60"></label><br>
         <label>Bairro:
@@ -32,6 +32,12 @@
             document.getElementById('bairro').value = '';
             document.getElementById('cidade').value = '';
             document.getElementById('uf').value = '';
+
+            document.querySelector('#rua').removeAttribute('disabled');
+            document.querySelector('#bairro').removeAttribute('disabled');
+            document.querySelector('#cidade').removeAttribute('disabled');
+            document.querySelector('#uf').removeAttribute('disabled');
+
         }
 
         function carregaCEP(conteudo) {
@@ -44,12 +50,14 @@
                 document.getElementById('cidade').value = conteudo.localidade;
                 document.getElementById('uf').value = conteudo.uf;
 
+                document.querySelector('#rua').removeAttribute('disabled');
+                document.querySelector('#rua').focus();
+
             } else {
 
                 //CEP não Encontrado.
                 limpa_formulário_cep();
                 alert('CEP não encontrado.');
-
             }
         }
 
@@ -72,6 +80,11 @@
                     document.getElementById('bairro').value = '...';
                     document.getElementById('cidade').value = '...';
                     document.getElementById('uf').value = '...';
+
+                    document.querySelector('#rua').setAttribute('disabled', '');
+                    document.querySelector('#bairro').setAttribute('disabled', '');
+                    document.querySelector('#cidade').setAttribute('disabled', '');
+                    document.querySelector('#uf').setAttribute('disabled', '');
 
                     // //Cria um elemento javascript.
                     // var script = document.createElement('script');
