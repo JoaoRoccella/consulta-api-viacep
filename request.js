@@ -1,4 +1,4 @@
-const request = new Request("https://viacep.com.br/ws/08330900/json/", {
+const request = new Request("https://viacep.com.br/ws/09810390/json/", {
   method: "GET",
 });
 
@@ -12,8 +12,9 @@ fetch(request)
   })
   .then((response) => {
     console.log(response);
-    // …
+    // ...
   })
   .catch((error) => {
     console.error(error);
+    // ...
   });
