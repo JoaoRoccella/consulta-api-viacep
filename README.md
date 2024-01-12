@@ -64,13 +64,13 @@ function pesquisaCEP(valor) {
 
         } else {
 
-            limpa_formulário_cep();
+            limpaFormularioCEP();
             alert('Formato de CEP inválido.');
         }
 
     } else {
 
-        limpa_formulário_cep();
+        limpaFormularioCEP();
     }
 }
 ```
@@ -83,7 +83,7 @@ const cep = valor.replace(/\D/g, '');
 A função `limpa_formulario_cep()` limpa o formulário e torna os inputs editáveis novamente:
 
 ```js
-function limpa_formulário_cep() {
+function limpaFormularioCEP() {
 
     document.getElementById('rua').value = '';
     document.getElementById('bairro').value = '';
@@ -116,7 +116,7 @@ function carregaCEP(conteudo) {
 
     } else {
 
-        limpa_formulário_cep();
+        limpaFormularioCEP();
         alert('CEP não encontrado.');
     }
 }
