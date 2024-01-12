@@ -39,13 +39,13 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="form-floating mb-3">
-                        <input class="info form-control" type="text" id="logradouro" size="60" placeholder="Logradouro">
+                        <input class="info alteravel form-control" type="text" id="logradouro" size="60" placeholder="Logradouro">
                         <label for="logradouro">Logradouro</label>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-floating mb-3">
-                        <input class="info form-control" type="text" id="complemento" size="60"
+                        <input class="info alteravel form-control" type="text" id="complemento" size="60"
                             placeholder="Complemento">
                         <label for="complemento">Complemento</label>
                     </div>
@@ -62,8 +62,8 @@
 
                 <div class="col-md-5">
                     <div class="form-floating mb-3">
-                        <input class="info form-control" type="text" id="cidade" size="40" placeholder="Cidade">
-                        <label for="cidade">Cidade</label>
+                        <input class="info form-control" type="text" id="localidade" size="40" placeholder="Cidade">
+                        <label for="localidade">Cidade</label>
                     </div>
                 </div>
 
@@ -119,19 +119,14 @@
         function carregaCEP(conteudo) {
 
             if (!("erro" in conteudo)) {
-                
-                document.querySelector('#logradouro').value = conteudo.logradouro;
-                document.querySelector('#complemento').value = conteudo.complemento;
-                document.querySelector('#bairro').value = conteudo.bairro;
-                document.querySelector('#cidade').value = conteudo.localidade;
-                document.querySelector('#uf').value = conteudo.uf;
-                document.querySelector('#ibge').value = conteudo.ibge;
-                document.querySelector('#gia').value = conteudo.gia;
-                document.querySelector('#ddd').value = conteudo.ddd;
-                document.querySelector('#siafi').value = conteudo.siafi;
 
-                document.querySelector('#logradouro').removeAttribute('disabled');
-                document.querySelector('#complemento').removeAttribute('disabled');
+                for (dado in conteudo) {
+                    document.querySelector(`#${dado}`).value = conteudo[dado];
+                }
+
+                document.querySelectorAll('input.info.alteravel').forEach(input => {
+                    input.removeAttribute('disabled');
+                });
 
             } else {
 
