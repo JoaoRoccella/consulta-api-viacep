@@ -30,7 +30,7 @@
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
                         <input class="form-control" name="cep" type="text" id="cep" value="" size="10" maxlength="9"
-                            onblur="pesquisacep(this.value);" placeholder="CEP" autofocus>
+                            onblur="pesquisaCEP(this.value);" placeholder="CEP" autofocus>
                         <label for="cep">CEP</label>
                     </div>
                 </div>
@@ -110,7 +110,7 @@
             }
         }
 
-        function pesquisacep(valor) {
+        function pesquisaCEP(valor) {
 
             //Nova variável "cep" somente com dígitos.
             const cep = valor.replace(/\D/g, '');
@@ -124,25 +124,10 @@
                 //Valida o formato do CEP.
                 if (validacep.test(cep)) {
 
-                    //Preenche os campos com "..." enquanto consulta webservice.
-                    document.getElementById('rua').value = '...';
-                    document.getElementById('bairro').value = '...';
-                    document.getElementById('cidade').value = '...';
-                    document.getElementById('uf').value = '...';
-
                     document.querySelector('#rua').setAttribute('disabled', '');
                     document.querySelector('#bairro').setAttribute('disabled', '');
                     document.querySelector('#cidade').setAttribute('disabled', '');
                     document.querySelector('#uf').setAttribute('disabled', '');
-
-                    // //Cria um elemento javascript.
-                    // var script = document.createElement('script');
-
-                    // //Sincroniza com o callback.
-                    // script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
-
-                    // //Insere script no documento e carrega o conteúdo.
-                    // document.body.appendChild(script);
 
                     const requisicao = new Request(`https://viacep.com.br/ws/${cep}/json/`, {
                         method: 'GET',
