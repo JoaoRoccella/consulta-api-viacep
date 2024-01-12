@@ -37,10 +37,17 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="rua" type="text" id="rua" size="60" placeholder="Logradouro">
-                        <label for="rua">Logradouro</label>
+                        <input class="info form-control" type="text" id="logradouro" size="60" placeholder="Logradouro">
+                        <label for="logradouro">Logradouro</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating mb-3">
+                        <input class="info form-control" type="text" id="complemento" size="60"
+                            placeholder="Complemento">
+                        <label for="complemento">Complemento</label>
                     </div>
                 </div>
             </div>
@@ -48,24 +55,49 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="bairro" type="text" id="bairro" size="40"
-                            placeholder="Bairro">
+                        <input class="info form-control" type="text" id="bairro" size="40" placeholder="Bairro">
                         <label for="bairro">Bairro</label>
                     </div>
                 </div>
 
                 <div class="col-md-5">
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="cidade" type="text" id="cidade" size="40"
-                            placeholder="Cidade">
+                        <input class="info form-control" type="text" id="cidade" size="40" placeholder="Cidade">
                         <label for="cidade">Cidade</label>
                     </div>
                 </div>
 
                 <div class="col-md-2">
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="uf" type="text" id="uf" size="2" placeholder="UF">
+                        <input class="info form-control" type="text" id="uf" size="2" placeholder="UF">
                         <label for="uf">UF</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-floating mb-3">
+                        <input class="info form-control" type="text" id="ibge" size="40" placeholder="IBGE">
+                        <label for="ibge">IBGE</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-floating mb-3">
+                        <input class="info form-control" type="text" id="gia" size="40" placeholder="GIA">
+                        <label for="gia">GIA</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-floating mb-3">
+                        <input class="info form-control" type="text" id="ddd" size="40" placeholder="DDD">
+                        <label for="ddd">DDD</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-floating mb-3">
+                        <input class="info form-control" type="text" id="siafi" size="40" placeholder="SIAFI">
+                        <label for="siafi">SIAFI</label>
                     </div>
                 </div>
             </div>
@@ -76,58 +108,53 @@
     <script>
 
         function limpaFormularioCEP() {
-            //Limpa valores do formulário de cep.
-            document.getElementById('rua').value = '';
-            document.getElementById('bairro').value = '';
-            document.getElementById('cidade').value = '';
-            document.getElementById('uf').value = '';
 
-            document.querySelector('#rua').removeAttribute('disabled');
-            document.querySelector('#bairro').removeAttribute('disabled');
-            document.querySelector('#cidade').removeAttribute('disabled');
-            document.querySelector('#uf').removeAttribute('disabled');
+            document.querySelectorAll('input.info').forEach(input => {
+                input.value = '';
+                input.removeAttribute('disabled');
+            });
 
         }
 
         function carregaCEP(conteudo) {
 
             if (!("erro" in conteudo)) {
+                
+                document.querySelector('#logradouro').value = conteudo.logradouro;
+                document.querySelector('#complemento').value = conteudo.complemento;
+                document.querySelector('#bairro').value = conteudo.bairro;
+                document.querySelector('#cidade').value = conteudo.localidade;
+                document.querySelector('#uf').value = conteudo.uf;
+                document.querySelector('#ibge').value = conteudo.ibge;
+                document.querySelector('#gia').value = conteudo.gia;
+                document.querySelector('#ddd').value = conteudo.ddd;
+                document.querySelector('#siafi').value = conteudo.siafi;
 
-                //Atualiza os campos com os valores.
-                document.getElementById('rua').value = conteudo.logradouro;
-                document.getElementById('bairro').value = conteudo.bairro;
-                document.getElementById('cidade').value = conteudo.localidade;
-                document.getElementById('uf').value = conteudo.uf;
-
-                document.querySelector('#rua').removeAttribute('disabled');
-                document.querySelector('#rua').focus();
+                document.querySelector('#logradouro').removeAttribute('disabled');
+                document.querySelector('#complemento').removeAttribute('disabled');
 
             } else {
 
-                //CEP não Encontrado.
                 limpaFormularioCEP();
                 alert('CEP não encontrado.');
             }
+
+            document.querySelector('#logradouro').focus();
         }
 
         function pesquisaCEP(valor) {
 
-            //Nova variável "cep" somente com dígitos.
             const cep = valor.replace(/\D/g, '');
 
-            //Verifica se campo cep possui valor informado.
             if (cep != "") {
 
-                //Expressão regular para validar o CEP.
                 const validacep = /^[0-9]{8}$/;
 
-                //Valida o formato do CEP.
                 if (validacep.test(cep)) {
 
-                    document.querySelector('#rua').setAttribute('disabled', '');
-                    document.querySelector('#bairro').setAttribute('disabled', '');
-                    document.querySelector('#cidade').setAttribute('disabled', '');
-                    document.querySelector('#uf').setAttribute('disabled', '');
+                    document.querySelectorAll('input.info').forEach(input => {
+                        input.setAttribute('disabled', '');
+                    });
 
                     const requisicao = new Request(`https://viacep.com.br/ws/${cep}/json/`, {
                         method: 'GET',
@@ -142,14 +169,12 @@
 
                 } else {
 
-                    //cep é inválido.
                     limpaFormularioCEP();
                     alert('Formato de CEP inválido.');
                 }
 
             } else {
 
-                //cep sem valor, limpa formulário.
                 limpaFormularioCEP();
             }
         }
