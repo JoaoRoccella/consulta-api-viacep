@@ -1,5 +1,7 @@
 # Consulta API da ViaCEP
 
+Teste aqui: https://joaoroccella.github.io/consulta-api-viacep/
+
 ## Explicação do código
 
 Apenas 5 inputs são necessários para realizar a consulta e receber as informações do CEP:
