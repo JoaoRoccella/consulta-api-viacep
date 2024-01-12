@@ -1,6 +1,8 @@
 # Consulta API da ViaCEP
 
-Teste aqui: https://joaoroccella.github.io/consulta-api-viacep/
+Teste aqui: <https://joaoroccella.github.io/consulta-api-viacep/>
+
+Consulte a página da API: <https://viacep.com.br/>
 
 ## Explicação do código
 
