@@ -176,10 +176,10 @@
                     });
 
                     const requisicao = new Request(`https://viacep.com.br/ws/${cep}/json/`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-type': 'application/json',
-                        },
+                        "method": "GET",
+                        "headers": {
+                            "Content-type": "application/json"
+                        }
                     })
 
                     fetch(requisicao)
